@@ -12,28 +12,30 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from dotenv import dotenv_values
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-config: dict = dotenv_values()
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+config = dotenv_values()
 SECRET_KEY = config.get("SECRET_KEY")
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-AUTH_USER_MODEL = "clients.Client"
+AUTH_USER_MODEL = 'clients.Client'
 # Application definition
 
 INSTALLED_APPS = [
-    'clients.apps.ClientsConfig', #чтоб тип подключить папку клиентс взяли мы из  clients/apps.py/4 строчка
+    'clients.apps.ClientsConfig',#чтоб тип подключить папку клиентс взяли мы из  clients/apps.py/4 строчка
+    "posts.apps.PostsConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,7 +73,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'settings.wsgi.application'
-ASGI_APPLICATION = 'settings.asgi.application'
 
 
 # Database
@@ -109,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'Asia/Almaty'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -120,10 +121,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
